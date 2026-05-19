@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>КСД Книгарня — Головна</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-icon">📚</span>
+      <div>
+        <span class="logo-title">КСД</span>
+        <span class="logo-sub">Книгарня</span>
+      </div>
+    </div>
+    <nav>
+      <ul class="nav-list">
+        <li><a href="index.html" class="active">Головна</a></li>
+        <li><a href="catalog.html">Каталог</a></li>
+        <li><a href="contact.html">Контакти</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <button class="cart-btn" onclick="toggleCart()">
+        🛒 Кошик <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- CART PANEL -->
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-header">
+    <h3>🛒 Ваш кошик</h3>
+    <button onclick="toggleCart()" class="close-cart">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <p class="cart-empty">Кошик порожній</p>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-total">Разом: <strong id="cartTotal">0</strong> грн</div>
+    <button class="btn-order" onclick="placeOrder()">Оформити замовлення</button>
+  </div>
+</div>
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+<!-- HERO SECTION -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Світ розкривається<br><em>через книги</em></h1>
+    <p>Найкращі книги українських та світових авторів з доставкою по всій Україні</p>
+    <a href="catalog.html" class="btn-primary">Переглянути каталог</a>
+  </div>
+  <div class="hero-books">
+    <div class="book-float b1">📖</div>
+    <div class="book-float b2">📕</div>
+    <div class="book-float b3">📗</div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="container">
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feat-icon">🚚</span>
+        <h3>Швидка доставка</h3>
+        <p>Доставка по всій Україні протягом 2–3 робочих днів</p>
+      </div>
+      <div class="feature-card">
+        <span class="feat-icon">📦</span>
+        <h3>Широкий вибір</h3>
+        <p>Понад 10 000 найменувань книг у нашому каталозі</p>
+      </div>
+      <div class="feature-card">
+        <span class="feat-icon">💳</span>
+        <h3>Зручна оплата</h3>
+        <p>Картою онлайн, при отриманні або банківським переказом</p>
+      </div>
+      <div class="feature-card">
+        <span class="feat-icon">🔄</span>
+        <h3>Повернення</h3>
+        <p>14 днів на повернення товару без жодних питань</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BESTSELLERS -->
+<section class="bestsellers">
+  <div class="container">
+    <h2 class="section-title">Бестселери тижня</h2>
+    <div class="books-grid" id="homeBooks"></div>
+    <div class="center">
+      <a href="catalog.html" class="btn-secondary">Всі книги →</a>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO SECTION -->
+<section class="video-section">
+  <div class="container">
+    <h2 class="section-title">Наш книжковий клуб</h2>
+    <p class="section-desc">Приєднуйтесь до спільноти читачів — обговорення, рецензії, зустрічі з авторами</p>
+    <div class="video-wrapper">
+      <iframe
+        src="https://www.youtube.com/embed/videoseries?list=UU@ksd_bookclub"
+        title="КСД Книжковий Клуб"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+    <div class="social-links">
+      <a href="https://www.youtube.com/@ksd_bookclub" target="_blank" class="social-btn yt">
+        <span>▶</span> YouTube
+      </a>
+      <a href="https://www.instagram.com/ksd_bookclub/" target="_blank" class="social-btn ig">
+        <span>📷</span> Instagram
+      </a>
+      <a href="https://www.facebook.com/ksdbookclub/mentions/" target="_blank" class="social-btn fb">
+        <span>f</span> Facebook
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- GENRES TABLE -->
+<section class="genres-section">
+  <div class="container">
+    <h2 class="section-title">Жанри та категорії</h2>
+    <table class="genres-table">
+      <thead>
+        <tr>
+          <th>Жанр</th>
+          <th>Кількість книг</th>
+          <th>Популярні автори</th>
+          <th>Ціна від</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>🔍 Детектив</td>
+          <td>1 240</td>
+          <td>Агата Крісті, Артур Конан Дойл</td>
+          <td>120 грн</td>
+        </tr>
+        <tr>
+          <td>🧙 Фентезі</td>
+          <td>980</td>
+          <td>Дж.Р.Р. Толкін, Дж.К. Роулінг</td>
+          <td>150 грн</td>
+        </tr>
+        <tr>
+          <td>💘 Романтика</td>
+          <td>760</td>
+          <td>Ніколас Спаркс, Колін Гувер</td>
+          <td>110 грн</td>
+        </tr>
+        <tr>
+          <td>🚀 Наукова фантастика</td>
+          <td>540</td>
+          <td>Айзек Азімов, Філіп К. Дік</td>
+          <td>130 грн</td>
+        </tr>
+        <tr>
+          <td>📚 Українська проза</td>
+          <td>890</td>
+          <td>Ліна Костенко, Іван Франко</td>
+          <td>90 грн</td>
+        </tr>
+        <tr>
+          <td>👶 Дитяча</td>
+          <td>1 100</td>
+          <td>Всеволод Нестайко, Оксана Лущевська</td>
+          <td>80 грн</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- NEWSLETTER FORM -->
+<section class="newsletter">
+  <div class="container">
+    <h2>Підпишіться на новини</h2>
+    <p>Отримуйте першими інформацію про нові надходження та знижки</p>
+    <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+      <input type="text" name="name" placeholder="Ваше ім'я" required>
+      <input type="email" name="email" placeholder="Ваш email" required>
+      <select name="genre">
+        <option value="">Улюблений жанр</option>
+        <option>Детектив</option>
+        <option>Фентезі</option>
+        <option>Романтика</option>
+        <option>Наукова фантастика</option>
+        <option>Українська проза</option>
+        <option>Дитяча</option>
+      </select>
+      <button type="submit" class="btn-primary">Підписатися</button>
+    </form>
+    <div id="subscribeMsg" class="subscribe-msg"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>📚 КСД Книгарня</h4>
+      <p>Ваш надійний книжковий партнер з 2010 року. Сотні тисяч задоволених читачів.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Навігація</h4>
+      <ul>
+        <li><a href="index.html">Головна</a></li>
+        <li><a href="catalog.html">Каталог книг</a></li>
+        <li><a href="contact.html">Контакти</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Контакти</h4>
+      <ul>
+        <li>📞 0 800 123 456</li>
+        <li>✉️ info@ksd-books.ua</li>
+        <li>📍 Київ, вул. Книжкова, 12</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Ми в соцмережах</h4>
+      <div class="footer-socials">
+        <a href="https://www.youtube.com/@ksd_bookclub" target="_blank">▶ YouTube</a>
+        <a href="https://www.instagram.com/ksd_bookclub/" target="_blank">📷 Instagram</a>
+        <a href="https://www.facebook.com/ksdbookclub/mentions/" target="_blank">f Facebook</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 КСД Книгарня. Всі права захищено.</p>
+  </div>
+</footer>
+
+<script src="cart.js"></script>
+<script>
+  // Render 4 featured books on home page
+  const featured = booksData.slice(0, 4);
+  renderBooks(featured, 'homeBooks');
+</script>
+</body>
+</html>

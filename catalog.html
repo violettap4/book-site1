@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>КСД Книгарня — Каталог</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-icon">📚</span>
+      <div>
+        <span class="logo-title">КСД</span>
+        <span class="logo-sub">Книгарня</span>
+      </div>
+    </div>
+    <nav>
+      <ul class="nav-list">
+        <li><a href="index.html">Головна</a></li>
+        <li><a href="catalog.html" class="active">Каталог</a></li>
+        <li><a href="contact.html">Контакти</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <button class="cart-btn" onclick="toggleCart()">
+        🛒 Кошик <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- CART PANEL -->
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-header">
+    <h3>🛒 Ваш кошик</h3>
+    <button onclick="toggleCart()" class="close-cart">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <p class="cart-empty">Кошик порожній</p>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-total">Разом: <strong id="cartTotal">0</strong> грн</div>
+    <button class="btn-order" onclick="placeOrder()">Оформити замовлення</button>
+  </div>
+</div>
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+<!-- PAGE TITLE -->
+<section class="page-banner">
+  <div class="container">
+    <h1>Каталог книг</h1>
+    <p>Знайдіть свою наступну улюблену книгу</p>
+  </div>
+</section>
+
+<!-- CATALOG LAYOUT -->
+<section class="catalog-section">
+  <div class="container catalog-layout">
+
+    <!-- SIDEBAR FILTERS -->
+    <aside class="sidebar">
+      <div class="filter-block">
+        <h4>Жанр</h4>
+        <ul class="filter-list" id="genreFilter">
+          <li><label><input type="radio" name="genre" value="all" checked onchange="filterBooks()"> Всі</label></li>
+          <li><label><input type="radio" name="genre" value="Детектив" onchange="filterBooks()"> Детектив</label></li>
+          <li><label><input type="radio" name="genre" value="Фентезі" onchange="filterBooks()"> Фентезі</label></li>
+          <li><label><input type="radio" name="genre" value="Романтика" onchange="filterBooks()"> Романтика</label></li>
+          <li><label><input type="radio" name="genre" value="Наукова фантастика" onchange="filterBooks()"> Наукова фантастика</label></li>
+          <li><label><input type="radio" name="genre" value="Українська проза" onchange="filterBooks()"> Українська проза</label></li>
+          <li><label><input type="radio" name="genre" value="Дитяча" onchange="filterBooks()"> Дитяча</label></li>
+        </ul>
+      </div>
+      <div class="filter-block">
+        <h4>Ціна до</h4>
+        <input type="range" id="priceRange" min="80" max="500" value="500" oninput="updatePrice(this.value)">
+        <div class="price-label">До <span id="priceVal">500</span> грн</div>
+      </div>
+      <div class="filter-block">
+        <h4>Сортування</h4>
+        <select id="sortSelect" onchange="filterBooks()">
+          <option value="default">За замовчуванням</option>
+          <option value="price-asc">Ціна: зростання</option>
+          <option value="price-desc">Ціна: спадання</option>
+          <option value="name">За назвою</option>
+        </select>
+      </div>
+      <button class="btn-primary" onclick="resetFilters()" style="width:100%;margin-top:8px">Скинути фільтри</button>
+    </aside>
+
+    <!-- BOOKS GRID -->
+    <main class="catalog-main">
+      <div class="catalog-meta">
+        <span id="foundCount"></span>
+        <input type="text" id="searchInput" placeholder="🔍 Пошук книги..." oninput="filterBooks()">
+      </div>
+      <div class="books-grid" id="catalogBooks"></div>
+    </main>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>📚 КСД Книгарня</h4>
+      <p>Ваш надійний книжковий партнер з 2010 року.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Навігація</h4>
+      <ul>
+        <li><a href="index.html">Головна</a></li>
+        <li><a href="catalog.html">Каталог книг</a></li>
+        <li><a href="contact.html">Контакти</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Ми в соцмережах</h4>
+      <div class="footer-socials">
+        <a href="https://www.youtube.com/@ksd_bookclub" target="_blank">▶ YouTube</a>
+        <a href="https://www.instagram.com/ksd_bookclub/" target="_blank">📷 Instagram</a>
+        <a href="https://www.facebook.com/ksdbookclub/mentions/" target="_blank">f Facebook</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 КСД Книгарня. Всі права захищено.</p>
+  </div>
+</footer>
+
+<script src="cart.js"></script>
+<script>
+  let maxPrice = 500;
+
+  function updatePrice(val) {
+    maxPrice = parseInt(val);
+    document.getElementById('priceVal').textContent = val;
+    filterBooks();
+  }
+
+  function filterBooks() {
+    const genre = document.querySelector('input[name="genre"]:checked').value;
+    const sort = document.getElementById('sortSelect').value;
+    const search = document.getElementById('searchInput').value.toLowerCase();
+
+    let filtered = booksData.filter(b => {
+      const matchGenre = genre === 'all' || b.genre === genre;
+      const matchPrice = b.price <= maxPrice;
+      const matchSearch = b.title.toLowerCase().includes(search) || b.author.toLowerCase().includes(search);
+      return matchGenre && matchPrice && matchSearch;
+    });
+
+    if (sort === 'price-asc') filtered.sort((a,b) => a.price - b.price);
+    else if (sort === 'price-desc') filtered.sort((a,b) => b.price - a.price);
+    else if (sort === 'name') filtered.sort((a,b) => a.title.localeCompare(b.title));
+
+    document.getElementById('foundCount').textContent = `Знайдено: ${filtered.length} книг`;
+    renderBooks(filtered, 'catalogBooks');
+  }
+
+  function resetFilters() {
+    document.querySelector('input[name="genre"][value="all"]').checked = true;
+    document.getElementById('priceRange').value = 500;
+    document.getElementById('priceVal').textContent = 500;
+    document.getElementById('sortSelect').value = 'default';
+    document.getElementById('searchInput').value = '';
+    maxPrice = 500;
+    filterBooks();
+  }
+
+  filterBooks();
+</script>
+</body>
+</html>
